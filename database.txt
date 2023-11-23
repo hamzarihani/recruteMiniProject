@@ -1,0 +1,7 @@
+# Connect to MySQL Database
+        self.db = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="recruiteapp"
+        )
