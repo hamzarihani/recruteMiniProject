@@ -47,6 +47,7 @@ CREATE TABLE `candidat` (
   `competence` varchar(255) NOT NULL,
   `diplome` ENUM('Sans_diplome', 'Bac', 'Bac+3' , 'Bac+5'),
   `experience` INT NOT NULL,
+  `location` varchar(255) NOT NULL,
   `status` ENUM('Poubelle', 'Pourquoi_Pas', 'Serieux'),
   `note` ENUM('1', '2', '3', '4', '5'),
   `ID_poste` INT,
