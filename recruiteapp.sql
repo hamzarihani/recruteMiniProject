@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2023 at 08:07 PM
+-- Generation Time: Dec 08, 2023 at 08:50 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,79 +24,104 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `candidates`
+-- Table structure for table `candidat`
 --
 
-CREATE TABLE `candidates` (
-  `candidate_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL,
+CREATE TABLE `candidat` (
+  `ID_candidat` int(11) NOT NULL,
+  `nom_prenom` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `job_post_id` int(11) DEFAULT NULL
+  `telephone` varchar(20) DEFAULT NULL,
+  `competence` varchar(255) NOT NULL,
+  `diplome` enum('Sans_diplome','Bac','Bac+3','Bac+5') DEFAULT NULL,
+  `experience` int(11) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `status` enum('Poubelle','Pourquoi_Pas','Serieux') DEFAULT NULL,
+  `note` enum('1','2','3','4','5') DEFAULT NULL,
+  `ID_poste` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `candidat`
+--
+
+INSERT INTO `candidat` (`ID_candidat`, `nom_prenom`, `email`, `telephone`, `competence`, `diplome`, `experience`, `location`, `status`, `note`, `ID_poste`) VALUES
+(11, 'eeeeeeeee', '', '', '', 'Bac+3', 0, '', '', '', 4),
+(12, 'az', '', '', '', 'Bac+3', 0, '', '', '1', 1),
+(14, 'dfffff', '', '', '', 'Sans_diplome', 0, '', 'Poubelle', '1', 1),
+(15, 'zaaaaaaazzzz', '', '', '', 'Sans_diplome', 0, '', 'Poubelle', '1', 1),
+(16, 'nnn', '', '', '', 'Sans_diplome', 0, '', 'Poubelle', '1', 1),
+(17, 'kjk', '', '', '', 'Bac+3', 0, '', 'Poubelle', '1', 4);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `job_posts`
+-- Table structure for table `poste`
 --
 
-CREATE TABLE `job_posts` (
-  `job_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` text DEFAULT NULL,
-  `location` varchar(100) DEFAULT NULL
+CREATE TABLE `poste` (
+  `ID_poste` int(11) NOT NULL,
+  `titre` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `mission` varchar(255) NOT NULL,
+  `competence` varchar(255) NOT NULL,
+  `diplome` enum('Sans_diplome','Bac','Bac+3','Bac+5') DEFAULT NULL,
+  `experience` int(11) NOT NULL,
+  `salaire` int(11) NOT NULL,
+  `location` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `job_posts`
+-- Dumping data for table `poste`
 --
 
-INSERT INTO `job_posts` (`job_id`, `title`, `description`, `location`) VALUES
-(3, 'developer', 'full stack', 'tunis');
+INSERT INTO `poste` (`ID_poste`, `titre`, `description`, `mission`, `competence`, `diplome`, `experience`, `salaire`, `location`) VALUES
+(1, 'Offre d emploi', 'Notre societe chereche a recriter les developpeurs', 'Developpeurs full stack', 'angular , nodejs', 'Bac+3', 2, 1600, 'tunis'),
+(4, 'testa', '', '', '', '', 0, 1000, ''),
+(6, 'zzz', '', '', '', '', 0, 0, '');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `candidates`
+-- Indexes for table `candidat`
 --
-ALTER TABLE `candidates`
-  ADD PRIMARY KEY (`candidate_id`),
-  ADD KEY `job_post_id` (`job_post_id`);
+ALTER TABLE `candidat`
+  ADD PRIMARY KEY (`ID_candidat`),
+  ADD KEY `ID_poste` (`ID_poste`);
 
 --
--- Indexes for table `job_posts`
+-- Indexes for table `poste`
 --
-ALTER TABLE `job_posts`
-  ADD PRIMARY KEY (`job_id`);
+ALTER TABLE `poste`
+  ADD PRIMARY KEY (`ID_poste`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `candidates`
+-- AUTO_INCREMENT for table `candidat`
 --
-ALTER TABLE `candidates`
-  MODIFY `candidate_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `candidat`
+  MODIFY `ID_candidat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `job_posts`
+-- AUTO_INCREMENT for table `poste`
 --
-ALTER TABLE `job_posts`
-  MODIFY `job_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `poste`
+  MODIFY `ID_poste` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `candidates`
+-- Constraints for table `candidat`
 --
-ALTER TABLE `candidates`
-  ADD CONSTRAINT `candidates_ibfk_1` FOREIGN KEY (`job_post_id`) REFERENCES `job_posts` (`job_id`);
+ALTER TABLE `candidat`
+  ADD CONSTRAINT `candidat_ibfk_1` FOREIGN KEY (`ID_poste`) REFERENCES `poste` (`ID_poste`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
