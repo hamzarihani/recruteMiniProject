@@ -378,14 +378,25 @@ class RecruitmentApp:
 
     def update_candidate(self, window, candidate_id, name, email, phone, competence, diploma, experience, location, status, note, poste_id):
         try:
+            if diploma == "Sans_diplome":
+                diplomeNum = 0
+            elif diploma == "Bac":
+                diplomeNum = 1
+            elif diploma == "Bac+3":
+                diplomeNum = 3
+            elif diploma == "Bac+5":
+                diplomeNum = 5
+            else:
+                # Handle other cases or set a default value
+                diplomeNum = 0 
             # Update the candidate information in the database
             query = """
                 UPDATE candidat
                 SET nom_prenom = %s, email = %s, telephone = %s, competence = %s, 
-                    diplome = %s, experience = %s, location = %s, status = %s, note = %s, ID_poste = %s
+                    diplome = %s, diplomeNum = %s, experience = %s, location = %s, status = %s, note = %s, ID_poste = %s
                 WHERE ID_candidat = %s
             """
-            values = (name, email, phone, competence, diploma, experience, location, status, note, poste_id, candidate_id)
+            values = (name, email, phone, competence, diploma, diplomeNum, experience, location, status, note, poste_id, candidate_id)
             self.cursor.execute(query, values)
             self.db.commit()
 
@@ -414,12 +425,23 @@ class RecruitmentApp:
 
     def add_candidate(self, window, name, email, phone, competence, diploma, experience, location, status, note, poste):
         try:
+            if diploma == "Sans_diplome":
+                diplomeNum = 0
+            elif diploma == "Bac":
+                diplomeNum = 1
+            elif diploma == "Bac+3":
+                diplomeNum = 3
+            elif diploma == "Bac+5":
+                diplomeNum = 5
+            else:
+                # Handle other cases or set a default value
+                diplomeNum = 0 
             # Insert a new candidate into the database
             query = """
-                INSERT INTO candidat (nom_prenom, email, telephone, competence, diplome, experience, location, status, note, ID_poste)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO candidat (nom_prenom, email, telephone, competence, diplome, diplomeNum, experience, location, status, note, ID_poste)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """
-            values = (name, email, phone, competence, diploma, experience, location, status, note, poste)
+            values = (name, email, phone, competence, diploma, diplomeNum, experience, location, status, note, poste)
             print(values)
             self.cursor.execute(query, values)
             self.db.commit()
